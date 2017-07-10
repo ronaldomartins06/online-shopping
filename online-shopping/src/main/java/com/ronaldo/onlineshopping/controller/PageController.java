@@ -4,18 +4,24 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-/**
- * Created by Ronaldo Martins
- * */
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ronaldo.shoppingbackend.dao.CategoryDAO;
+import com.ronaldo.shoppingbackend.dao.ProductDAO;
 import com.ronaldo.shoppingbackend.dto.Category;
+import com.ronaldo.shoppingbackend.dto.Product;
+
+/**
+ * Created by Ronaldo Martins
+ * */
 @Controller
 public class PageController {
 
 	@Autowired
 	private CategoryDAO categoryDAO;
+	
+	@Autowired
+	private ProductDAO productDAO;
 	
 	@RequestMapping(value={"/", "/home", "/index"})
 	public ModelAndView index()
@@ -78,6 +84,23 @@ public class PageController {
 		//passing a single category object
 		mv.addObject("category", category);
 		mv.addObject("userClickCategoryProducts", true);
+		return mv;
+	}
+	
+	//Viewing a single product
+	@RequestMapping(value="/show/{id}/product")
+	public ModelAndView showSingleProduct(@PathVariable("id") int id)
+	{
+		ModelAndView mv = new ModelAndView("page");
+		
+		Product product = productDAO.get(id);
+		product.setViews(product.getViews() +1);
+		productDAO.update(product);
+		
+		mv.addObject("title", product.getName());
+		mv.addObject("product", product);
+		mv.addObject("userClickShowProduct", true);
+		
 		return mv;
 	}
 

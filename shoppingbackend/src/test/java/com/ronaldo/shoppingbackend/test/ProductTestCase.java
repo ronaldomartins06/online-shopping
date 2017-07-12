@@ -47,8 +47,9 @@ public class ProductTestCase {
 	public void testAcoesProduct()
 	{
 		product = new Product();
-		product = productDAO.get(6);
-		product.setDescription("This is some description for Motorola mobile");
+		product = productDAO.get(1);
+		product.setQuantity(0);
+		//product.setDescription("This is some description for Motorola mobile");
 //		product.setName("Moto G");
 //		product.setBrand("Motorola");
 		

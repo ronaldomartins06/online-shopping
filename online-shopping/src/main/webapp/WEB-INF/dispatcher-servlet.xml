@@ -20,6 +20,8 @@
 	    <property name="suffix" value=".jsp"/>
 	</bean>
 	
+	<bean id="multipartResolver" class="org.springframework.web.multipart.support.StandardServletMultipartResolver"/>
+	
 	<!-- Loanding static resources -->
 	<mvc:annotation-driven/>
 	<mvc:resources location="/assets/" mapping="/resources/**"/>

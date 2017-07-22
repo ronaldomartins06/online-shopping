@@ -26,7 +26,7 @@
 					<c:if test="${userClickCategoryProducts == true }">
 					
 					<script>
-						window.categoryId = '${categoryId}';
+						window.categoryId = '${category.id}';
 					</script>
 					
 						<ol class="breadcrumb">

@@ -173,5 +173,13 @@ input:checked + .slider:before {
 	
 	table#cart tfoot td{display:block; }
 	table#cart tfoot td .btn{display:block;}
-	
+}
+
+.cartImg{
+	width:100px;
+	height:100px;
+}
+
+.unavailable{
+	color: red;
 }

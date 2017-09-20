@@ -29,24 +29,27 @@ public class GlobalController {
 		if( session.getAttribute("userModel") == null ){
 			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 			
-			User user = userDAO.getByEmail(authentication.getName());
-			if( user != null ){
-				userModel = new UserModel();
-				//creating a new UserModel object to pass the user details
-				userModel.setId(user.getId());
-				userModel.setEmail(user.getEmail());
-				userModel.setRole(user.getRole());
-				userModel.setFullName(user.getFirstName() +" "+ user.getLastName());
+			if( !authentication.getName().equals("anonymousUser") ){
 				
-				if( userModel.getRole().equals("USER") ){
-					//if the user is a customer set the cart
-					userModel.setCart(user.getCart());
-				}
+				User user = userDAO.getByEmail(authentication.getName());
+				if( user != null ){
+					userModel = new UserModel();
+					//creating a new UserModel object to pass the user details
+					userModel.setId(user.getId());
+					userModel.setEmail(user.getEmail());
+					userModel.setRole(user.getRole());
+					userModel.setFullName(user.getFirstName() +" "+ user.getLastName());
 					
-				//setting the userModel in the session
-				session.setAttribute("userModel", userModel);
-				
-				return userModel;
+					if( userModel.getRole().equals("USER") ){
+						//if the user is a customer set the cart
+						userModel.setCart(user.getCart());
+					}
+						
+					//setting the userModel in the session
+					session.setAttribute("userModel", userModel);
+					
+					return userModel;
+				}
 			}
 		}
 		

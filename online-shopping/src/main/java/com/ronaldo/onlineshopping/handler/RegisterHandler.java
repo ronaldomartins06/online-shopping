@@ -14,7 +14,7 @@ import com.ronaldo.shoppingbackend.dto.User;
 
 @Component
 public class RegisterHandler {
-	
+
 	@Autowired
 	private UserDAO userDAO;
 	

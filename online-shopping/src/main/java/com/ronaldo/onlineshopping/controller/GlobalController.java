@@ -20,7 +20,8 @@ public class GlobalController {
 	
 	@Autowired
 	private UserDAO userDAO;
-	private UserModel userModel;
+	
+	private UserModel userModel = null;
 	
 	@ModelAttribute("userModel")
 	public UserModel getUserModel(){

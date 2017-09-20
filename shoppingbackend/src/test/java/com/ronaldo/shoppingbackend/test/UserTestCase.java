@@ -99,18 +99,6 @@ public class UserTestCase {
 	}
 	
 	@Test
-	public void testUpdateCart(){
-		user = userDAO.getByEmail("ronaldomartins06@gmail.com");
-		System.out.println(user.getEmail());
-		cart = user.getCart();
-		
-		cart.setGrandTotal(555);
-		cart.setCartLines(2);
-		
-		assertEquals("Failed to update cart", true, userDAO.updateCart(cart));
-	}
-	
-	@Test
 	public void testAddAddress(){
 		user = new User();
 		

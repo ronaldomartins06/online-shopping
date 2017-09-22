@@ -10,7 +10,7 @@ public interface CartLineDAO {
 	public List<CartLine> list(int cartId);
 	public CartLine get(int id);	
 	public boolean add(CartLine cartLine);
-	public boolean update(CartLine cartLine);
+	public CartLine update(CartLine cartLine);
 	public boolean delete(CartLine cartLine);
 	public boolean updateCart(Cart cart);
 	public List<CartLine> listAvailable(int cartId);

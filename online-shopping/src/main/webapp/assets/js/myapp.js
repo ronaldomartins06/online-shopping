@@ -345,4 +345,32 @@ var $adminProductTable = $('#adminProductTable');
 			}
 		});
 	}
+	
+	//handling the click event of refresh cart button
+	$('button[name="refreshCart"]').click(function(){
+		
+		var cartLineId		= $(this).attr('value');
+		var countElement	= $('#count_' +cartLineId);
+		
+		var originalCount	= countElement.attr('value');
+		var currentCount	= countElement.val();
+		
+		if( currentCount != originalCount ){
+			if( currentCount < 1 || currentCount > 4 ){
+				
+				//reverting back to the original count
+				//in case the user tries to use value not allowed
+				countElement.val(originalCount);
+				bootbox.alert({
+					size:'medium',
+					title:'Error',
+					message:'Product count should be between 1-4!'
+				});
+			}else{
+				var updateUrl = window.contextRoot + '/cart/' + cartLineId + '/update?count=' +currentCount;
+				window.location.href = updateUrl;
+			}
+		}
+		
+	});
 });

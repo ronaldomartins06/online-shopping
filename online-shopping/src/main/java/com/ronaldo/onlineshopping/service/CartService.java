@@ -11,12 +11,13 @@ import com.ronaldo.onlineshopping.model.UserModel;
 import com.ronaldo.shoppingbackend.dao.CartLineDAO;
 import com.ronaldo.shoppingbackend.dto.Cart;
 import com.ronaldo.shoppingbackend.dto.CartLine;
+import com.ronaldo.shoppingbackend.dto.Product;
 
 @Service("cartService")
 public class CartService {
 
 	@Autowired
-	private CartLineDAO carLineDAO;
+	private CartLineDAO cartLineDAO;
 	
 	@Autowired
 	private HttpSession session;
@@ -28,6 +29,55 @@ public class CartService {
 	
 	//returns the entire cart lines
 	public List<CartLine> getCartLines(){
-		return carLineDAO.list(this.getCart().getId());
+		return cartLineDAO.list(this.getCart().getId());
+	}
+
+	public String updateCartLine(int cartLineId, int count) {
+		
+		//fetching the cart line
+		CartLine cartLine = cartLineDAO.get(cartLineId);
+		
+		if( cartLine == null ){
+			return "result=error";
+		}else{
+			Product product = cartLine.getProduct();
+			double oldTotal = cartLine.getTotal();
+			
+			if( product.getQuantity() <= count){
+				count = product.getQuantity();
+			}
+			
+			cartLine.setProductCount(count);
+			cartLine.setBuyingPrice(product.getUnitPrice());
+			cartLine.setTotal(product.getUnitPrice() * count);
+			cartLineDAO.update(cartLine);
+			
+			Cart cart = this.getCart();
+			cart.setGrandTotal(cart.getGrandTotal() - oldTotal + cartLine.getTotal());
+			cartLineDAO.updateCart(cart);
+			
+			return "result=updated";
+		}
+	}
+
+	public String deleteCartLine(int cartLineId) {
+		//fetch the cartLine
+		CartLine cartLine = cartLineDAO.get(cartLineId);
+		
+		if( cartLine == null ){
+			return "result=error";
+		}else{
+			
+			//update the cart
+			Cart cart = this.getCart();
+			cart.setGrandTotal(cart.getGrandTotal() - cartLine.getTotal());
+			cart.setCartLines(cart.getCartLines() - 1);
+			cartLineDAO.updateCart(cart);
+			
+			//remove the cart line
+			cartLineDAO.delete(cartLine);
+			
+			return "result=deleted";
+		}
 	}
 }

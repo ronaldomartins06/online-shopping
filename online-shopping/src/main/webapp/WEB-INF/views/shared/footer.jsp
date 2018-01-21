@@ -5,8 +5,8 @@
         <!-- Footer -->
         <footer>
             <div class="row">
-                <div class="col-lg-12">
-                    <p>Copyright &copy; Your Website 2014</p>
+                <div class="col-lg-12" align="center">
+                    <p>Copyright &copy; JR SOLUTIONS 2017</p>
                 </div>
             </div>
         </footer>

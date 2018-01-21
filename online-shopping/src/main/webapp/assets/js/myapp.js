@@ -117,16 +117,17 @@ $(function(){
 		});
 	}
 	
+	//handling timeOut for alert messages
 	var $alert=$('.alert');
 	
 	if($alert.length){
 		setTimeout(function(){
-			$alert.fadeOUt('slow');
-		}, 3000)
+			$alert.fadeOut('slow');
+		} , 2000)
 		
 	}
 	
-	//------------------
+	//handling admin interface for activating/deactivating products
 	$('.switch input[type="checkbox"]').on('change', function() {
 		var checkbox = $(this);
 		var checked = checkbox.prop('checked');
@@ -156,7 +157,6 @@ $(function(){
 	});
 	
 	//adminDataTable
-	
 var $adminProductTable = $('#adminProductTable');
 	
 	if($adminProductTable.length){

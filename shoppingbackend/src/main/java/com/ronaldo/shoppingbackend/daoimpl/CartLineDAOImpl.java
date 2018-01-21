@@ -45,13 +45,13 @@ public class CartLineDAOImpl implements CartLineDAO {
 	}
 
 	@Override
-	public CartLine update(CartLine cartLine) {
+	public boolean update(CartLine cartLine) {
 		try {
-			CartLine cart = (CartLine)sessionFactory.getCurrentSession().merge(cartLine);
-			return cart;
+			sessionFactory.getCurrentSession().update(cartLine);
+			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
-			return null;
+			return false;
 		}
 	}
 
